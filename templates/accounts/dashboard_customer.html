@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · WaShar{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Hi, {{ user.first_name }}</h1>
+  <p>Find a car wash and reserve a time slot.</p>
+  <a class="btn" href="{% url 'accounts:profile' %}">View profile</a>
+  <a class="btn ghost" href="{% url 'accounts:profile_edit' %}">Edit vehicle details</a>
+</div>
+<div class="grid">
+  <section class="card"><h2>Upcoming appointments</h2><p class="empty">No reservations yet. Booking opens in the next phase.</p></section>
+  <section class="card"><h2>Your vehicle</h2>
+    {% if user.vehicle_plate %}<p>{{ user.vehicle_model }} · {{ user.get_vehicle_type_display }}<br>Plate {{ user.vehicle_plate }}</p>
+    {% else %}<p class="empty">No vehicle saved. <a href="{% url 'accounts:profile_edit' %}">Add details</a></p>{% endif %}
+  </section>
+</div>
+{% endblock %}

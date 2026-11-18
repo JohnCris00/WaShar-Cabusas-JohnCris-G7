@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Profile · WaShar{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="row">
+    {% if profile_user.profile_photo %}<img class="avatar" src="{{ profile_user.profile_photo.url }}" alt="Your profile photo">
+    {% else %}<div class="avatar" aria-hidden="true">{{ profile_user.username|slice:":1"|upper }}</div>{% endif %}
+    <div><h1>{{ profile_user.get_full_name|default:profile_user.username }}</h1><p>{{ profile_user.get_role_display }}</p></div>
+  </div>
+  <dl>
+    <dt>Username</dt><dd>{{ profile_user.username }}</dd>
+    <dt>Email</dt><dd>{{ profile_user.email }}</dd>
+    <dt>Contact number</dt><dd>{{ profile_user.contact_number|default:"Not set" }}</dd>
+    {% if profile_user.is_customer %}
+    <dt>Plate number</dt><dd>{{ profile_user.vehicle_plate|default:"Not set" }}</dd>
+    <dt>Vehicle model</dt><dd>{{ profile_user.vehicle_model|default:"Not set" }}</dd>
+    <dt>Vehicle type</dt><dd>{{ profile_user.get_vehicle_type_display|default:"Not set" }}</dd>
+    {% endif %}
+  </dl>
+  <a class="btn" href="{% url 'accounts:profile_edit' %}">Edit profile</a>
+</div>
+{% endblock %}

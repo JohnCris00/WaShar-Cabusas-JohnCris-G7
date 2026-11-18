@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Operator dashboard · WaShar{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Shop dashboard</h1>
+  <p>Welcome, {{ user.first_name }}. Manage your shop and today's reservations here.</p>
+  <a class="btn" href="{% url 'accounts:profile' %}">View profile</a>
+</div>
+<div class="grid">
+  <section class="card"><h2>Today's reservations</h2><p class="empty">No reservation requests yet.</p></section>
+  <section class="card"><h2>Shop profile and slots</h2><p class="empty">Shop setup and slot availability arrive in the next phase.</p></section>
+</div>
+{% endblock %}

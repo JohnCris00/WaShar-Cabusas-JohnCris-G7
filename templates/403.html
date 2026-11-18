@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Access denied · WaShar{% endblock %}
+{% block content %}
+<div class="card narrow">
+  <h1>You can't open this page</h1>
+  <p>This page belongs to a different account type. Go back to your own dashboard.</p>
+  <a class="btn" href="{% url 'accounts:dashboard' %}">Go to my dashboard</a>
+</div>
+{% endblock %}
