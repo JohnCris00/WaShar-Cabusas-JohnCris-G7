@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ shop.name }}</h1>
+<p>{{ shop.address }}<br>{{ shop.contact_number }}</p>
+<p>Hours: {{ shop.opening_time|time:"g:i A" }} – {{ shop.closing_time|time:"g:i A" }} · Capacity: {{ shop.slot_capacity }}</p>
+<a href="{% url 'shops:shop_update' shop.pk %}">Edit shop</a> |
+<a href="{% url 'shops:shop_delete' shop.pk %}">Delete shop</a>
+
+<h2>Services</h2>
+<a href="{% url 'shops:service_create' shop.pk %}">+ Add service</a>
+<table>
+  <tr><th>Name</th><th>Price</th><th>Duration</th><th>Status</th><th></th></tr>
+  {% for s in services %}
+  <tr>
+    <td>{{ s.name }}</td><td>₱{{ s.price }}</td><td>{{ s.duration_minutes }} min</td>
+    <td>{% if s.is_active %}Active{% else %}Inactive{% endif %}</td>
+    <td><a href="{% url 'shops:service_update' s.pk %}">Edit</a> |
+        <a href="{% url 'shops:service_delete' s.pk %}">Delete</a></td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="5">No services yet.</td></tr>
+  {% endfor %}
+</table>
+<a href="{% url 'shops:my_shops' %}">← Back to my shops</a>
+{% endblock %}
