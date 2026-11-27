@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Find a car wash</h1>
+<form method="get">
+  <input type="text" name="q" value="{{ q }}" placeholder="Search by shop, address or service">
+  <button type="submit">Search</button>
+</form>
+{% for shop in shops %}
+  <div>
+    <h3><a href="{% url 'shops:shop_public_detail' shop.pk %}">{{ shop.name }}</a></h3>
+    <p>{{ shop.address }} · {{ shop.opening_time|time:"g:i A" }} – {{ shop.closing_time|time:"g:i A" }}</p>
+  </div>
+{% empty %}
+  <p>No shops found.</p>
+{% endfor %}
+{% endblock %}

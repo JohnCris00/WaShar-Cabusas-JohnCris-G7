@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ shop.name }}</h1>
+<p>{{ shop.address }}<br>{{ shop.contact_number }}</p>
+<p>Open {{ shop.opening_time|time:"g:i A" }} – {{ shop.closing_time|time:"g:i A" }}</p>
+<h2>Services</h2>
+<ul>
+  {% for s in services %}
+  <li>{{ s.name }} — ₱{{ s.price }} ({{ s.duration_minutes }} min)</li>
+  {% empty %}
+  <li>No services listed.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'shops:shop_finder' %}">← Back to search</a>
+{% endblock %}
