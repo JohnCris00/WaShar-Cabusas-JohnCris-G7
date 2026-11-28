@@ -11,5 +11,6 @@
   <li>No services listed.</li>
   {% endfor %}
 </ul>
+<p><a href="{% url 'reservations:create' shop.pk %}">Reserve a slot</a></p>
 <a href="{% url 'shops:shop_finder' %}">← Back to search</a>
 {% endblock %}
