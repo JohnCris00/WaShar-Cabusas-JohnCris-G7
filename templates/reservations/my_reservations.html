@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>My reservations</h1>
+<p>
+  <a href="{% url 'reservations:my_reservations' %}">All</a>
+  {% for value, label in statuses %}
+    | <a href="?status={{ value }}">{{ label }}</a>
+  {% endfor %}
+  | <a href="{% url 'shops:shop_finder' %}">+ New reservation</a>
+</p>
+<table>
+  <tr><th>Shop</th><th>Service</th><th>Date</th><th>Time</th><th>Plate</th><th>Status</th><th></th></tr>
+  {% for r in reservations %}
+  <tr>
+    <td>{{ r.shop.name }}</td>
+    <td>{{ r.service.name }} (₱{{ r.service.price }})</td>
+    <td>{{ r.date|date:"M d, Y" }}</td>
+    <td>{{ r.start_time|time:"g:i A" }} – {{ r.end_time|time:"g:i A" }}</td>
+    <td>{{ r.vehicle_plate }}</td>
+    <td>{{ r.get_status_display }}</td>
+    <td>
+      {% if r.is_pending %}
+        <a href="{% url 'reservations:update' r.pk %}">Edit</a>
+        <form method="post" action="{% url 'reservations:cancel' r.pk %}" style="display:inline">
+          {% csrf_token %}<button type="submit">Cancel</button>
+        </form>
+      {% elif r.status == "cancelled" %}
+        <a href="{% url 'reservations:delete' r.pk %}">Delete</a>
+      {% endif %}
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="7">No reservations yet.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}
